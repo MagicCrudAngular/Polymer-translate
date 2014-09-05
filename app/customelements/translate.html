@@ -1,0 +1,43 @@
+<link rel="import" href="../components/polymer/polymer.html">
+<link rel="import" href="../components/core-ajax/core-ajax.html">
+<polymer-element name="my-translate" attributes="culture url">
+    <template>
+        <style>
+            :host{
+                display: none;
+            }
+        </style>
+        <core-ajax id="resources" auto url="{{url}}" handleAs="json" on-core-response="{{handleResponse}}"></core-ajax>
+    </template>
+    <script>
+            Polymer("my-translate",{
+              culture:'en',
+              url:'../customelements/translate.json',
+              handleResponse:function(event,response){
+                 this.data = response.response;
+                 this.setModel();
+              },
+              cultureChanged:function(oldValue, newValue){
+                  if(oldValue!==newValue){
+                    this.setModel();
+                  }
+              },
+              urlChanged:function(oldValue,newValue){
+                  if(oldValue!==newValue){
+                    this.$.resources.go();
+                  }
+              },
+              setModel:function(){
+                  var culture = this.culture || "en",templates,i;
+                  if(this.data){
+                      templates = document.querySelectorAll("[is*='auto-binding']");
+                      if (templates){
+                          for(i=0;i<templates.length;i++){
+                              templates[i].model.res=this.data[culture];
+                          }
+                      }
+                  }
+              }
+            });
+    </script>
+</polymer-element>

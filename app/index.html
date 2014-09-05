@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="components/platform/platform.js"></script>
+        <link rel="import" href="customelements/translate.html">
+         <style>
+            h2,h4,h6{
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <template is="auto-binding">
+            <header>
+                <h1>{{res.hello}}-{{res.world}}</h1>
+                <h2>{{res.hello}}-{{res.world}}</h2>
+                <h3>{{res.hello}}-{{res.world}}</h3>
+                <h4>{{res.hello}}-{{res.world}}</h4>
+                <h5>{{res.hello}}-{{res.world}}</h5>
+                <h6>{{res.hello}}-{{res.world}}</h6>
+            </header>
+        </template>
+        <my-translate></my-translate>
+        <script>
+            window.addEventListener('WebComponentsReady', function(e) {
+                document.querySelector('my-translate').culture="es";
+            });
+        </script>
+    </body>
+</html>
